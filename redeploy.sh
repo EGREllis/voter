@@ -2,5 +2,5 @@
 
 git pull
 mvn clean install
-java -jar target/voter-1.0-SNAPSHOT.jar
+java -jar -Dserver.port=80 target/voter-1.0-SNAPSHOT.jar
 
