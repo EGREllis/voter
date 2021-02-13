@@ -17,7 +17,7 @@
             <h2>Cast your vote</h2>
             <div class="row" onclick="selectCandidate(0)">
                 <div class="col-md-3">
-                    <img src="face01.jpg" />
+                    <img src="Face_01.jpg" />
                 </div>
                 <div class="col-md-3">
                     <img src="logo01.jpg" />
@@ -28,7 +28,18 @@
             </div>
             <div class="row" onclick="selectCandidate(1)">
                 <div class="col-md-3">
-                    <img src="face01.jpg" />
+                    <img src="Face02.jpg" />
+                </div>
+                <div class="col-md-3">
+                    <img src="logo02.jpg" />
+                </div>
+                <div class="col-md-3">
+                    <p>Candidate 2 name</p>
+                </div>
+            </div>
+            <div class="row" onclick="selectCandidate(1)">
+                <div class="col-md-3">
+                    <img src="Face02.jpg" />
                 </div>
                 <div class="col-md-3">
                     <img src="logo02.jpg" />
