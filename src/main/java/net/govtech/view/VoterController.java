@@ -11,10 +11,12 @@ import java.util.Map;
 @Controller
 public class VoterController {
     public static final String VOTER_REGISTER_KEY = "voterRegister";
+    public static final String CURRENT_USER = "currentUser";
     private VoterRegisterRequest mostRecentRequest;
 
     @GetMapping("/")
     public String index(Map<String,Object> model) {
+        model.put("validUser", mostRecentRequest != null);
         return "main";
     }
 
@@ -28,6 +30,8 @@ public class VoterController {
         String viewName = "castVote";
         if (mostRecentRequest == null) {
             viewName = "registerVoter";
+        } else {
+            model.put(CURRENT_USER, mostRecentRequest);
         }
         return viewName;
     }
