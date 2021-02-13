@@ -3,7 +3,6 @@ package net.govtech.view;
 import net.govtech.model.VoterRegisterRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -12,6 +11,7 @@ import java.util.Map;
 @Controller
 public class VoterController {
     public static final String VOTER_REGISTER_KEY = "voterRegister";
+    private VoterRegisterRequest mostRecentRequest;
 
     @GetMapping("/")
     public String index(Map<String,Object> model) {
@@ -25,7 +25,11 @@ public class VoterController {
 
     @GetMapping("/castVote")
     public String castVote(Map<String, Object> model) {
-        return "castVote";
+        String viewName = "castVote";
+        if (mostRecentRequest == null) {
+            viewName = "registerVoter";
+        }
+        return viewName;
     }
 
     @GetMapping("/registerCouncil")
@@ -61,6 +65,7 @@ public class VoterController {
     ) {
         VoterRegisterRequest voterRegisterRequest = createRegisterVoterBean(firstName, lastName, firstAddr, secondAddr, city, county, postCode);
         model.put(VOTER_REGISTER_KEY, voterRegisterRequest);
+        this.mostRecentRequest = voterRegisterRequest;
         return "registerVoterSuccessful";
     }
 
