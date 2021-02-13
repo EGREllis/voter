@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -13,6 +14,7 @@ public class VoterController {
     public static final String VOTER_REGISTER_KEY = "voterRegister";
     public static final String CURRENT_USER = "currentUser";
     private VoterRegisterRequest mostRecentRequest;
+    private Map<String, Integer> votes = new HashMap<>();
 
     @GetMapping("/")
     public String index(Map<String,Object> model) {
@@ -27,11 +29,15 @@ public class VoterController {
 
     @GetMapping("/castVote")
     public String castVote(Map<String, Object> model) {
-        String viewName = "castVote";
+        String viewName;
         if (mostRecentRequest == null) {
             viewName = "registerVoter";
+        } else if (votes.containsKey(voterId(mostRecentRequest))) {
+            model.put(CURRENT_USER, mostRecentRequest);
+            viewName = "oneVoteOnly";
         } else {
             model.put(CURRENT_USER, mostRecentRequest);
+            viewName = "castVote";
         }
         return viewName;
     }
@@ -73,6 +79,13 @@ public class VoterController {
         return "registerVoterSuccessful";
     }
 
+    @PostMapping("/submitVote")
+    public String submitVote(@RequestParam("voteIndex") String voteIndex, Map<String, Object> param) {
+        param.put(CURRENT_USER, this.mostRecentRequest);
+        votes.put(voterId(mostRecentRequest), Integer.valueOf(voteIndex));
+        return "voteSuccessful";
+    }
+
     private VoterRegisterRequest createRegisterVoterBean(String firstName, String lastName, String firstAddr, String secondAddr, String city, String county, String postCode) {
         VoterRegisterRequest request = new VoterRegisterRequest();
         request.setFirstName(firstName);
@@ -83,5 +96,9 @@ public class VoterController {
         request.setCounty(county);
         request.setPostCode(postCode);
         return request;
+    }
+
+    private String voterId(VoterRegisterRequest request) {
+        return String.format("%1$s,%2$s", request.getLastName(), request.getFirstName());
     }
 }

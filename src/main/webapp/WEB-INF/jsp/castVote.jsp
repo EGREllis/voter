@@ -19,42 +19,31 @@
         </script>
     </head>
     <body class="text-center">
-        <form method="POST" action="cast_vote" id="cast_vote">
-            <h2>Cast your vote</h2>
+        <form method="POST" action="submitVote" id="cast_vote">
+            <h2>Cast your vote <c:out value="${currentUser.firstName}" /></h2>
             <div class="row" onclick="selectCandidate(0)">
                 <div class="col-md-3">
-                    <img src="Face_01.jpeg" />
+                    <img src="Boris.jpeg" style="width:200px; height=200px" />
                 </div>
                 <div class="col-md-3">
-                    <img src="logo01.jpeg" />
+                    <img src="conservatives.jpg" style="width:200px; height=200px" />
                 </div>
                 <div class="col-md-3">
-                    <p>Candidate 1 name</p>
+                    <p>Boris Johnson</p>
                 </div>
             </div>
             <div class="row" onclick="selectCandidate(1)">
                 <div class="col-md-3">
-                    <img src="Face_02.jpeg" />
+                    <img src="Jeremy.jpeg" style="width:200px; height=200px"/>
                 </div>
                 <div class="col-md-3">
-                    <img src="logo02.jpeg" />
+                    <img src="labour.png" style="width:200px; height=200px"/>
                 </div>
                 <div class="col-md-3">
-                    <p>Candidate 2 name</p>
+                    <p>Jeremy Corbyn</p>
                 </div>
             </div>
-            <div class="row" onclick="selectCandidate(2)">
-                <div class="col-md-3">
-                    <img src="Face_03.jpeg" />
-                </div>
-                <div class="col-md-3">
-                    <img src="logo03.jpeg" />
-                </div>
-                <div class="col-md-3">
-                    <p>Candidate 3 name</p>
-                </div>
-            </div>
-            <input type="hidden" id="vote_value" name="vote_value" value="-1" />
+            <input type="hidden" id="vote_value" name="voteIndex" value="-1" />
         </form>
     </body>
 </html>
